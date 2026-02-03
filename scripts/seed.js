@@ -156,6 +156,11 @@ async function updateBlocks(blocks) {
       blockCopy.files = existingAndUploadedFiles;
       // Push the updated block
       updatedBlocks.push(blockCopy);
+    } else if (block.__component === 'shared.rich-text') {
+      // Replace /uploads/ paths with actual uploaded URLs
+      const blockCopy = { ...block };
+      blockCopy.body = replaceBodyImagePaths(block.body);
+      updatedBlocks.push(blockCopy);
     } else {
       // Just push the block as is
       updatedBlocks.push(block);
@@ -221,6 +226,9 @@ async function importGlobal() {
   });
 }
 
+// Map to store uploaded file URLs: filename -> url
+const bodyImageUrlMap = new Map();
+
 async function uploadBodyImages() {
   const imageRegex = /\/uploads\/([^\s)]+)/g;
   const filenames = new Set();
@@ -235,8 +243,30 @@ async function uploadBodyImages() {
     }
   }
   for (const filename of filenames) {
-    await checkFileExistsBeforeUpload([filename]);
+    const uploadedFile = await checkFileExistsBeforeUpload([filename]);
+    if (uploadedFile && uploadedFile.url) {
+      bodyImageUrlMap.set(filename, uploadedFile.url);
+    }
   }
+}
+
+/**
+ * Replace /uploads/filename paths in body content with actual uploaded URLs
+ */
+function replaceBodyImagePaths(body) {
+  if (!body) return body;
+
+  let updatedBody = body;
+  for (const [filename, url] of bodyImageUrlMap) {
+    // Replace /uploads/filename with the actual URL
+    const pattern = new RegExp(`/uploads/${escapeRegExp(filename)}`, 'g');
+    updatedBody = updatedBody.replace(pattern, url);
+  }
+  return updatedBody;
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 async function importCategories() {
