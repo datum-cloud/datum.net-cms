@@ -23,8 +23,6 @@ const BLOG_SOURCE =
   path.join(__dirname, '../../datum.net/src/content/blog');
 const DATA_JSON = path.join(__dirname, '../data/data.json');
 const UPLOADS_DIR = path.join(__dirname, '../data/uploads');
-const PUBLIC_UPLOADS_DIR = path.join(__dirname, '../public/uploads');
-
 const sanitizeBaseName = (name) => {
   return name
     .normalize('NFKD')
@@ -44,9 +42,6 @@ function ensureUploadsDirs() {
   if (!fs.existsSync(UPLOADS_DIR)) {
     fs.mkdirSync(UPLOADS_DIR, { recursive: true });
   }
-  if (!fs.existsSync(PUBLIC_UPLOADS_DIR)) {
-    fs.mkdirSync(PUBLIC_UPLOADS_DIR, { recursive: true });
-  }
 }
 
 function copyToUploads(sourcePath, destName) {
@@ -54,8 +49,6 @@ function copyToUploads(sourcePath, destName) {
   ensureUploadsDirs();
   const destData = path.join(UPLOADS_DIR, destName);
   fs.copyFileSync(sourcePath, destData);
-  const destPublic = path.join(PUBLIC_UPLOADS_DIR, destName);
-  fs.copyFileSync(sourcePath, destPublic);
 }
 
 function getAuthorFiles(dir) {
@@ -329,13 +322,6 @@ function main() {
 
   ensureUploadsDirs();
 
-  const defaultImagePath = path.join(UPLOADS_DIR, 'default-image.png');
-  if (fs.existsSync(defaultImagePath)) {
-    const publicDefault = path.join(PUBLIC_UPLOADS_DIR, 'default-image.png');
-    if (!fs.existsSync(publicDefault)) {
-      fs.copyFileSync(defaultImagePath, publicDefault);
-    }
-  }
 
   // Sync categories
   if (fs.existsSync(CATEGORIES_SOURCE)) {
