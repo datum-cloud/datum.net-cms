@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Sync authors, categories, and blog from datum.net content collection to data.json
- * Copies images: authors → data/uploads/authors/, categories → data/uploads/,
- * blog → data/uploads/blog/
+ * Copies all images into data/uploads/ (flat; no authors/, blog/, og/ subdirs).
+ * Paths in data.json are filenames only, e.g. author-{slug}.png, blog-{slug}-cover.png.
  *
  * Usage: node scripts/sync-authors-to-data.js
  * Env: AUTHORS_SOURCE, CATEGORIES_SOURCE, BLOG_SOURCE
@@ -23,8 +23,40 @@ const BLOG_SOURCE =
   path.join(__dirname, '../../datum.net/src/content/blog');
 const DATA_JSON = path.join(__dirname, '../data/data.json');
 const UPLOADS_DIR = path.join(__dirname, '../data/uploads');
-const UPLOADS_AUTHORS_DIR = path.join(UPLOADS_DIR, 'authors');
-const UPLOADS_BLOG_DIR = path.join(UPLOADS_DIR, 'blog');
+const PUBLIC_UPLOADS_DIR = path.join(__dirname, '../public/uploads');
+
+const sanitizeBaseName = (name) => {
+  return name
+    .normalize('NFKD')
+    .replace(/[^a-zA-Z0-9]+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toLowerCase();
+};
+
+const buildFileName = (base, ext) => {
+  const sanitizedBase = sanitizeBaseName(base);
+  const sanitizedExt = ext ? ext.toLowerCase() : '';
+  return `${sanitizedBase}${sanitizedExt}`;
+};
+
+function ensureUploadsDirs() {
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(PUBLIC_UPLOADS_DIR)) {
+    fs.mkdirSync(PUBLIC_UPLOADS_DIR, { recursive: true });
+  }
+}
+
+function copyToUploads(sourcePath, destName) {
+  if (!sourcePath || !fs.existsSync(sourcePath)) return;
+  ensureUploadsDirs();
+  const destData = path.join(UPLOADS_DIR, destName);
+  fs.copyFileSync(sourcePath, destData);
+  const destPublic = path.join(PUBLIC_UPLOADS_DIR, destName);
+  fs.copyFileSync(sourcePath, destPublic);
+}
 
 function getAuthorFiles(dir) {
   const files = [];
@@ -156,7 +188,7 @@ function stripMdxBody(content) {
   return body;
 }
 
-function extractAndCopyBodyImages(body, fileDir, slug, blogUploadsDir) {
+function extractAndCopyBodyImages(body, fileDir, slug) {
   const imageRegex = /!\[([^\]]*)\]\((\.\/)?([^)]+)\)/g;
   let match;
   let result = body;
@@ -166,10 +198,10 @@ function extractAndCopyBodyImages(body, fileDir, slug, blogUploadsDir) {
     const imgPath = path.join(fileDir, match[3]);
     if (fs.existsSync(imgPath)) {
       const ext = path.extname(imgPath);
-      const destName = `${slug}-img-${++idx}${ext}`;
-      const destPath = path.join(blogUploadsDir, destName);
-      fs.copyFileSync(imgPath, destPath);
-      result = result.replace(match[0], `![${alt}](/uploads/blog/${destName})`);
+      const destName = buildFileName(`${slug}-img-${++idx}`, ext);
+      copyToUploads(imgPath, destName);
+      console.log(`  Copied body image: ${destName}`);
+      result = result.replace(match[0], `![${alt}](/uploads/${destName})`);
     }
   }
   return result;
@@ -232,7 +264,7 @@ function loadBlogPosts(sourceDir, authorSlugToId, categorySlugToId) {
     const ogDescription = data.meta?.og?.description;
 
     const rawBody = stripMdxBody(bodyContent);
-    const body = extractAndCopyBodyImages(rawBody, fileDir, slug, UPLOADS_BLOG_DIR);
+    const body = extractAndCopyBodyImages(rawBody, fileDir, slug);
 
     const date = data.date ? new Date(data.date) : null;
     const originalPublishedAt = date && !Number.isNaN(date.getTime()) ? date.toISOString() : null;
@@ -295,6 +327,16 @@ function toArticleDataJsonFormat(post, coverFilename, ogImageFilename) {
 function main() {
   const data = JSON.parse(fs.readFileSync(DATA_JSON, 'utf-8'));
 
+  ensureUploadsDirs();
+
+  const defaultImagePath = path.join(UPLOADS_DIR, 'default-image.png');
+  if (fs.existsSync(defaultImagePath)) {
+    const publicDefault = path.join(PUBLIC_UPLOADS_DIR, 'default-image.png');
+    if (!fs.existsSync(publicDefault)) {
+      fs.copyFileSync(defaultImagePath, publicDefault);
+    }
+  }
+
   // Sync categories
   if (fs.existsSync(CATEGORIES_SOURCE)) {
     const categories = loadCategories(CATEGORIES_SOURCE);
@@ -303,9 +345,8 @@ function main() {
       let featuredImageFilename = null;
       if (category.featuredImagePath) {
         const ext = path.extname(category.featuredImagePath);
-        featuredImageFilename = `${category.slug}${ext}`;
-        const destPath = path.join(UPLOADS_DIR, featuredImageFilename);
-        fs.copyFileSync(category.featuredImagePath, destPath);
+        featuredImageFilename = buildFileName(`category-${category.slug}`, ext);
+        copyToUploads(category.featuredImagePath, featuredImageFilename);
         console.log(`  Copied category image: ${featuredImageFilename}`);
       }
       dataJsonCategories.push(toCategoryDataJsonFormat(category, featuredImageFilename));
@@ -325,30 +366,18 @@ function main() {
   const authors = loadAuthors(AUTHORS_SOURCE);
   console.log(`Found ${authors.length} authors`);
 
-  if (!fs.existsSync(UPLOADS_DIR)) {
-    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(UPLOADS_AUTHORS_DIR)) {
-    fs.mkdirSync(UPLOADS_AUTHORS_DIR, { recursive: true });
-  }
-
-  const defaultAvatarPath = path.join(UPLOADS_DIR, 'default-image.png');
-  if (fs.existsSync(defaultAvatarPath)) {
-    fs.copyFileSync(defaultAvatarPath, path.join(UPLOADS_AUTHORS_DIR, 'default-image.png'));
-  }
-
   const dataJsonAuthors = [];
   for (const author of authors) {
     let avatarFilename = null;
     if (author.avatarPath) {
       const ext = path.extname(author.avatarPath);
-      const name = `${author.slug}${ext}`;
-      avatarFilename = `authors/${name}`;
-      fs.copyFileSync(author.avatarPath, path.join(UPLOADS_AUTHORS_DIR, name));
-      console.log(`  Copied avatar: authors/${name}`);
+      const name = buildFileName(`author-${author.slug}`, ext);
+      avatarFilename = name;
+      copyToUploads(author.avatarPath, name);
+      console.log(`  Copied avatar: ${name}`);
     } else {
-      avatarFilename = 'authors/default-image.png';
-      if (fs.existsSync(path.join(UPLOADS_AUTHORS_DIR, 'default-image.png'))) {
+      avatarFilename = 'default-image.png';
+      if (fs.existsSync(path.join(UPLOADS_DIR, 'default-image.png'))) {
         console.log(`  Using default avatar for ${author.name}`);
       }
     }
@@ -359,10 +388,6 @@ function main() {
 
   // Sync blog
   if (fs.existsSync(BLOG_SOURCE)) {
-    if (!fs.existsSync(UPLOADS_BLOG_DIR)) {
-      fs.mkdirSync(UPLOADS_BLOG_DIR, { recursive: true });
-    }
-
     const authorSlugToId = {};
     authors.forEach((a, i) => {
       authorSlugToId[a.slug] = i + 1;
@@ -379,18 +404,18 @@ function main() {
       let coverFilename = null;
       if (post.coverPath) {
         const ext = path.extname(post.coverPath);
-        const name = `${post.slug}-cover${ext}`;
-        coverFilename = `blog/${name}`;
-        fs.copyFileSync(post.coverPath, path.join(UPLOADS_BLOG_DIR, name));
-        console.log(`  Copied cover: blog/${name}`);
+        const name = buildFileName(`blog-${post.slug}-cover`, ext);
+        coverFilename = name;
+        copyToUploads(post.coverPath, name);
+        console.log(`  Copied cover: ${name}`);
       }
       let ogImageFilename = null;
       if (post.ogImagePath) {
         const ext = path.extname(post.ogImagePath);
-        const name = `${post.slug}-og${ext}`;
-        ogImageFilename = `blog/${name}`;
-        fs.copyFileSync(post.ogImagePath, path.join(UPLOADS_BLOG_DIR, name));
-        console.log(`  Copied og image: blog/${name}`);
+        const name = buildFileName(`blog-${post.slug}-og`, ext);
+        ogImageFilename = name;
+        copyToUploads(post.ogImagePath, name);
+        console.log(`  Copied og image: ${name}`);
       }
       dataJsonArticles.push(toArticleDataJsonFormat(post, coverFilename, ogImageFilename));
     }

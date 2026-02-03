@@ -12,4 +12,9 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  upload: {
+    config: {
+      hashFileName: false,
+    },
+  },
 });
