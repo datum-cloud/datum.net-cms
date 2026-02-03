@@ -235,13 +235,13 @@ function loadBlogPosts(sourceDir, authorSlugToId, categorySlugToId) {
     const body = extractAndCopyBodyImages(rawBody, fileDir, slug, UPLOADS_BLOG_DIR);
 
     const date = data.date ? new Date(data.date) : null;
-    const publishedAt = date && !Number.isNaN(date.getTime()) ? date.toISOString() : null;
+    const originalPublishedAt = date && !Number.isNaN(date.getTime()) ? date.toISOString() : null;
     const firstPublishedAt = data.firstPublishedAt
       ? (() => {
           const d = new Date(data.firstPublishedAt);
-          return !Number.isNaN(d.getTime()) ? d.toISOString() : publishedAt;
+          return !Number.isNaN(d.getTime()) ? d.toISOString() : originalPublishedAt;
         })()
-      : publishedAt;
+      : originalPublishedAt;
 
     posts.push({
       slug,
@@ -256,12 +256,14 @@ function loadBlogPosts(sourceDir, authorSlugToId, categorySlugToId) {
       ogTitle,
       ogDescription,
       body,
-      publishedAt,
+      originalPublishedAt,
       firstPublishedAt,
     });
   }
   return posts.sort((a, b) => {
-    if (a.publishedAt && b.publishedAt) return b.publishedAt.localeCompare(a.publishedAt);
+    const aDate = a.originalPublishedAt || a.firstPublishedAt;
+    const bDate = b.originalPublishedAt || b.firstPublishedAt;
+    if (aDate && bDate) return bDate.localeCompare(aDate);
     return a.slug < b.slug ? -1 : 1;
   });
 }
@@ -275,10 +277,8 @@ function toArticleDataJsonFormat(post, coverFilename, ogImageFilename) {
   };
   if (post.authorId) entry.author = { id: post.authorId };
   if (post.categoryId) entry.category = { id: post.categoryId };
-  // Always set publishedAt so articles are published, not draft
-  const publishedAt = post.publishedAt || new Date().toISOString();
-  entry.publishedAt = publishedAt;
-  entry.firstPublishedAt = post.firstPublishedAt || publishedAt;
+  if (post.originalPublishedAt) entry.originalPublishedAt = post.originalPublishedAt;
+  if (post.firstPublishedAt) entry.firstPublishedAt = post.firstPublishedAt;
   if (coverFilename) entry.cover = coverFilename;
   if (post.metaTitle || post.metaDescription) {
     entry.seo = {

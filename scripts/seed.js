@@ -175,20 +175,28 @@ async function importArticles() {
     }
     const updatedBlocks = await updateBlocks(article.blocks || []);
 
-    const publishedAt = article.publishedAt
-      ? new Date(article.publishedAt).toISOString()
+    // Use originalPublishedAt from article
+    const originalPublishedAt = article.originalPublishedAt
+      ? new Date(article.originalPublishedAt).toISOString()
       : new Date().toISOString();
-    const entry = { ...article, blocks: updatedBlocks, publishedAt, firstPublishedAt: publishedAt };
-    if (cover) entry.cover = cover;
 
-    if (entry.seo?.shareImage) {
-      const shareImage = await checkFileExistsBeforeUpload([entry.seo.shareImage]);
-      entry.seo = { ...entry.seo, shareImage };
+    // Create entry with only originalPublishedAt field
+    const entryData = {
+      ...article,
+      blocks: updatedBlocks,
+      originalPublishedAt,
+    };
+    if (cover) entryData.cover = cover;
+
+    if (entryData.seo?.shareImage) {
+      const shareImage = await checkFileExistsBeforeUpload([entryData.seo.shareImage]);
+      entryData.seo = { ...entryData.seo, shareImage };
     }
 
-    await createEntry({
+    // Create the entry and publish it
+    const createdEntry = await createEntry({
       model: 'article',
-      entry,
+      entry: entryData,
       status: 'published',
     });
   }
