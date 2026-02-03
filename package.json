@@ -10,6 +10,8 @@
     "deploy": "strapi deploy",
     "develop": "strapi develop",
     "sync:authors": "node ./scripts/sync-authors-to-data.js",
+    "update:image-paths": "node ./scripts/update-image-paths.js",
+    "update:db-image-paths": "node ./scripts/update-db-image-paths.js",
     "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
     "strapi": "strapi"
