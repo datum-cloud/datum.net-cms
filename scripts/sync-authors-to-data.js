@@ -263,7 +263,7 @@ function loadBlogPosts(sourceDir, authorSlugToId, categorySlugToId) {
   return posts.sort((a, b) => {
     const aDate = a.originalPublishedAt || a.firstPublishedAt;
     const bDate = b.originalPublishedAt || b.firstPublishedAt;
-    if (aDate && bDate) return bDate.localeCompare(aDate);
+    if (aDate && bDate) return aDate.localeCompare(bDate);
     return a.slug < b.slug ? -1 : 1;
   });
 }

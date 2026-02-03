@@ -180,11 +180,12 @@ async function importArticles() {
       ? new Date(article.originalPublishedAt).toISOString()
       : new Date().toISOString();
 
-    // Create entry with only originalPublishedAt field
+    // Create entry: publishedAt set here (same as originalPublishedAt), not in data.json
     const entryData = {
       ...article,
       blocks: updatedBlocks,
       originalPublishedAt,
+      publishedAt: originalPublishedAt,
     };
     if (cover) entryData.cover = cover;
 
