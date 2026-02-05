@@ -104,6 +104,7 @@ function loadAuthors(sourceDir) {
 
 function toDataJsonFormat(author, avatarFilename) {
   const entry = {
+    slug: author.slug,
     name: author.name,
     bio: author.bio,
     isTeam: author.isTeam,
