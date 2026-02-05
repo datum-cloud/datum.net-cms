@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Update image paths in Strapi SQLite database to match hashed filenames
+ * Update image paths in Strapi SQLite database to match cloud URLs
  *
- * This script directly updates the database to replace original filenames
- * with Strapi-generated hashed filenames from public/uploads/
+ * This script directly updates the database to replace /uploads/filename paths
+ * with full Strapi Cloud media URLs (without /uploads/ prefix)
  *
  * Usage: node scripts/update-db-image-paths.js
  *
@@ -13,9 +13,15 @@
 const fs = require('fs');
 const path = require('path');
 const Database = require('better-sqlite3');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const DB_PATH = path.join(__dirname, '../.tmp/data.db');
 const PUBLIC_UPLOADS_DIR = path.join(__dirname, '../public/uploads');
+
+// Strapi Cloud media base URL (without trailing slash)
+// Can be set via STRAPI_CLOUD_MEDIA_URL env var or defaults to hardcoded value
+const STRAPI_CLOUD_MEDIA_URL =
+  process.env.STRAPI_CLOUD_MEDIA_URL || 'https://grateful-excitement-dfe9d47bad.media.strapiapp.com';
 
 /**
  * Escape special regex characters
@@ -44,6 +50,7 @@ function findHashedFile(originalFilename) {
 
 /**
  * Update image paths in a text body (markdown content)
+ * Replaces /uploads/filename with full cloud URL (no /uploads/ prefix)
  * @param {string} body - The body text containing markdown images
  * @returns {{ body: string, replacements: Array }}
  */
@@ -55,9 +62,11 @@ function updateBodyImagePaths(body) {
 
   const updatedBody = body.replace(imageRegex, (match, alt, filename) => {
     const hashedFilename = findHashedFile(filename);
-    if (hashedFilename && hashedFilename !== filename) {
-      replacements.push({ original: filename, hashed: hashedFilename });
-      return `![${alt}](/uploads/${hashedFilename})`;
+    if (hashedFilename) {
+      // Use full cloud URL without /uploads/ prefix
+      const cloudUrl = `${STRAPI_CLOUD_MEDIA_URL}/${hashedFilename}`;
+      replacements.push({ original: `/uploads/${filename}`, cloudUrl });
+      return `![${alt}](${cloudUrl})`;
     }
     return match;
   });
@@ -107,7 +116,7 @@ function main() {
         if (replacements.length > 0) {
           updateStmt.run(updatedBody, row.id);
           for (const r of replacements) {
-            console.log(`  Rich text id=${row.id}: ${r.original} -> ${r.hashed}`);
+            console.log(`  Rich text id=${row.id}: ${r.original} -> ${r.cloudUrl}`);
             totalReplacements++;
           }
         }
@@ -126,8 +135,9 @@ function main() {
       for (const file of files) {
         // Check if there's a hashed version of this file
         const hashedFilename = findHashedFile(file.name);
-        if (hashedFilename && hashedFilename !== file.name) {
-          const newUrl = `/uploads/${hashedFilename}`;
+        if (hashedFilename) {
+          // Use full cloud URL without /uploads/ prefix
+          const newUrl = `${STRAPI_CLOUD_MEDIA_URL}/${hashedFilename}`;
 
           // Extract hash from filename (e.g., "file_abc123.png" -> "abc123")
           const ext = path.extname(hashedFilename);
@@ -142,7 +152,7 @@ function main() {
             file.id
           );
 
-          console.log(`  File id=${file.id}: ${file.name} -> ${hashedFilename}`);
+          console.log(`  File id=${file.id}: ${file.url} -> ${newUrl}`);
           totalReplacements++;
         }
       }
@@ -170,7 +180,7 @@ function main() {
           if (replacements.length > 0) {
             updateStmt.run(updatedBody, article.id);
             for (const r of replacements) {
-              console.log(`  Article "${article.title}": ${r.original} -> ${r.hashed}`);
+              console.log(`  Article "${article.title}": ${r.original} -> ${r.cloudUrl}`);
               totalReplacements++;
             }
           }
