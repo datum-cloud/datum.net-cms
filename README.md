@@ -57,6 +57,24 @@ npm run migrate:authors
 - `AUTHORS_SOURCE`: Override source path (default: `../../datum.net/src/content/authors`)
 - Run from `strapi-blog` directory with datum.net as sibling folder
 
+## 🔗 Webhook Cache Invalidation
+
+Automatic cache invalidation for datum.net when content changes in Strapi.
+
+**Documentation:** See `docs/WEBHOOK_README.md` for complete guide.
+
+**Quick setup:**
+1. Configure webhook in Strapi Admin (Settings → Webhooks)
+2. Point to: `https://datum.net/api/webhooks/strapi-content`
+3. Add secret header: `X-Webhook-Secret`
+4. Enable events for Article and Author (create/update/delete)
+
+**Files:**
+- `docs/WEBHOOK_CACHE_INVALIDATION.md` - Complete setup guide
+- `docs/WEBHOOK_IMPLEMENTATION_SUMMARY.md` - Overview and status
+- `docs/WEBHOOK_TESTING_QUICK_REFERENCE.md` - Quick testing commands
+- `docs/WEBHOOK_README.md` - Documentation index
+
 ## ⚙️ Deployment
 
 Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
