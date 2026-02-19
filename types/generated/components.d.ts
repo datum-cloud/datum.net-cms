@@ -35,6 +35,18 @@ export interface SharedRichText extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedRichTextBlocks extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rich_text_blocks';
+  info: {
+    description: 'New Strapi 5 block editor';
+    displayName: 'Rich text (Blocks)';
+    icon: 'align-justify';
+  };
+  attributes: {
+    body: Schema.Attribute.Blocks;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -84,6 +96,7 @@ declare module '@strapi/strapi' {
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
+      'shared.rich-text-blocks': SharedRichTextBlocks;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
       'shared.social': SharedSocial;
