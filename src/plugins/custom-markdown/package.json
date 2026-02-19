@@ -1,0 +1,20 @@
+{
+  "name": "custom-markdown",
+  "version": "1.0.0",
+  "description": "Custom markdown editor with Figure support for Strapi",
+  "strapi": {
+    "name": "custom-markdown",
+    "description": "A custom markdown editor with Figure button for inserting images with captions",
+    "kind": "plugin",
+    "displayName": "Custom Markdown Editor"
+  },
+  "dependencies": {
+    "react-simplemde-editor": "^5.2.0",
+    "easymde": "^2.18.0"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^5.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

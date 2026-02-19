@@ -17,4 +17,8 @@ module.exports = ({ env }) => ({
       hashFileName: false,
     },
   },
+  'custom-markdown': {
+    enabled: true,
+    resolve: './src/plugins/custom-markdown',
+  },
 });
