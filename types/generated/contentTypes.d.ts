@@ -497,6 +497,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'>;
     social: Schema.Attribute.Component<'shared.social', false>;
     surprising: Schema.Attribute.Text;
     team: Schema.Attribute.Enumeration<['founders', 'team']>;
