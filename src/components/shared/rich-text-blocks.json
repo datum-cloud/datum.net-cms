@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_rich_text_blocks",
+  "info": {
+    "displayName": "Rich text (Blocks)",
+    "icon": "align-justify",
+    "description": "New Strapi 5 block editor"
+  },
+  "options": {},
+  "attributes": {
+    "body": {
+      "type": "blocks"
+    }
+  }
+}
