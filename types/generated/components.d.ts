@@ -67,11 +67,13 @@ export interface SharedSlider extends Struct.ComponentSchema {
 export interface SharedSocial extends Struct.ComponentSchema {
   collectionName: 'components_shared_socials';
   info: {
-    description: 'Social media links (Twitter, GitHub, LinkedIn)';
+    description: 'Social media links (Twitter, GitHub, LinkedIn, Discord, Email)';
     displayName: 'Social';
     icon: 'link';
   };
   attributes: {
+    discord: Schema.Attribute.String;
+    email: Schema.Attribute.Email;
     github: Schema.Attribute.String;
     linkedin: Schema.Attribute.String;
     twitter: Schema.Attribute.String;

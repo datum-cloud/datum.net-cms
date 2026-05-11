@@ -485,9 +485,26 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
     avatar: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     bio: Schema.Attribute.Text & Schema.Attribute.Required;
+    calendly: Schema.Attribute.String;
+    cardCategories: Schema.Attribute.String &
+      Schema.Attribute.CustomField<
+        'plugin::multiselect-field.multiselect-field',
+        {
+          availableOptions: [
+            'partnerships',
+            'support',
+            'pr_events',
+            'fundraising',
+          ];
+          delimiter: ',';
+        }
+      >;
+    cardImages: Schema.Attribute.Media<'images', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    helloBio: Schema.Attribute.Text;
+    isCard: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isTeam: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -495,6 +512,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
       'api::author.author'
     > &
       Schema.Attribute.Private;
+    location: Schema.Attribute.String;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'>;
@@ -502,6 +520,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     surprising: Schema.Attribute.Text;
     team: Schema.Attribute.Enumeration<['founders', 'team']>;
     tick: Schema.Attribute.Text;
+    timezone: Schema.Attribute.String;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
