@@ -1,4 +1,7 @@
 module.exports = ({ env }) => ({
+  'multiselect-field': {
+    enabled: true,
+  },
   graphql: {
     enabled: true,
     config: {

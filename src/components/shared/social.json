@@ -3,7 +3,7 @@
   "info": {
     "displayName": "Social",
     "icon": "link",
-    "description": "Social media links (Twitter, GitHub, LinkedIn)"
+    "description": "Social media links (Twitter, GitHub, LinkedIn, Discord, Email)"
   },
   "options": {},
   "attributes": {
@@ -15,6 +15,12 @@
     },
     "linkedin": {
       "type": "string"
+    },
+    "discord": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
     }
   }
 }

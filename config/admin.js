@@ -1,4 +1,9 @@
 module.exports = ({ env }) => ({
+  // Live Preview: without this, Content Manager preview requests 500 with "Preview config not found".
+  // Set enabled: true and add config.handler + config.allowedOrigins when you want real preview URLs.
+  preview: {
+    enabled: false,
+  },
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },

@@ -28,6 +28,10 @@
       "type": "text",
       "required": true
     },
+    "helloBio": {
+      "type": "text",
+      "required": false
+    },
     "avatar": {
       "type": "media",
       "multiple": false,
@@ -49,6 +53,30 @@
         "team"
       ]
     },
+    "isCard": {
+      "type": "boolean",
+      "default": false
+    },
+    "cardCategories": {
+      "type": "customField",
+      "customField": "plugin::multiselect-field.multiselect-field",
+      "required": false,
+      "options": {
+        "availableOptions": [
+          "partnerships",
+          "support",
+          "pr_events",
+          "fundraising"
+        ],
+        "delimiter": ","
+      }
+    },
+    "location": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string"
+    },
     "social": {
       "type": "component",
       "repeatable": false,
@@ -62,6 +90,18 @@
     },
     "weekends": {
       "type": "text"
+    },
+    "calendly": {
+      "type": "string",
+      "regex": "^$|^https?:\\/\\/\\S+$"
+    },
+    "cardImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "articles": {
       "type": "relation",
