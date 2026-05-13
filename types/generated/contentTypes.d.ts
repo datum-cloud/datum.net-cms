@@ -503,6 +503,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    deckBio: Schema.Attribute.Text;
     helloBio: Schema.Attribute.Text;
     isCard: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isTeam: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

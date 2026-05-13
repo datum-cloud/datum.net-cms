@@ -32,6 +32,10 @@
       "type": "text",
       "required": false
     },
+    "deckBio": {
+      "type": "text",
+      "required": false
+    },
     "avatar": {
       "type": "media",
       "multiple": false,
