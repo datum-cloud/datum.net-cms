@@ -14,22 +14,21 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "description": "Release title (e.g., Release 1.3: Dolores)"
+      "required": true
     },
     "description": {
-      "type": "string",
-      "description": "Brief description of the milestone"
+      "type": "string"
+    },
+    "summarize": {
+      "type": "richtext"
     },
     "releaseDate": {
       "type": "date",
-      "required": true,
-      "description": "Release month (pick 1st of month, e.g. 2025-03-01 for March 2025)"
+      "required": true
     },
     "githubUrl": {
       "type": "string",
-      "required": false,
-      "description": "Optional URL to GitHub release or milestone"
+      "required": false
     }
   }
 }
