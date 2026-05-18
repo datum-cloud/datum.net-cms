@@ -24,6 +24,7 @@
     },
     "releaseDate": {
       "type": "date",
+      "description": "Use the first day of the release month (YYYY-MM-01).",
       "required": true
     },
     "githubUrl": {
