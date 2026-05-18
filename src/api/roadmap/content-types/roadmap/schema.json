@@ -19,7 +19,7 @@
     "description": {
       "type": "string"
     },
-    "summarize": {
+    "summary": {
       "type": "richtext"
     },
     "releaseDate": {
