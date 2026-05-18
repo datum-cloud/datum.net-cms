@@ -1,0 +1,19 @@
+types/generated/contentTypes.d.ts
+  ai_agent 625
+src/api/roadmap/content-types/roadmap/schema.json
+  ai_agent 17,20-23,27,31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "301bbc68b362b03f750be1d9c729453761933f29",
+  "prompts": {},
+  "humans": {
+    "h_be6412991b9fef": {
+      "author": "AriaEdo"
+    },
+    "h_c7951bc64db670": {
+      "author": "AriaEdo <aria.edo@gmail.com>"
+    }
+  }
+}
