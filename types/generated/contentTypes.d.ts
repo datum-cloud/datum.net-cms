@@ -608,6 +608,7 @@ export interface ApiRoadmapRoadmap extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    cover: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -622,7 +623,8 @@ export interface ApiRoadmapRoadmap extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     releaseDate: Schema.Attribute.Date & Schema.Attribute.Required;
-    summarize: Schema.Attribute.RichText;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.RichText;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
