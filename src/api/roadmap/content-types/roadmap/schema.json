@@ -43,6 +43,10 @@
     "githubUrl": {
       "type": "string",
       "required": false
+    },
+    "shipped": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

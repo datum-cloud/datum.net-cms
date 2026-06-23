@@ -623,6 +623,7 @@ export interface ApiRoadmapRoadmap extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     releaseDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    shipped: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     summary: Schema.Attribute.RichText;
     title: Schema.Attribute.String & Schema.Attribute.Required;
