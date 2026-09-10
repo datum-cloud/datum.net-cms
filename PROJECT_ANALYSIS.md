@@ -38,9 +38,13 @@ datum.net-cms/
 │   │   ├── article/        # Article collection type (Blog Post)
 │   │   ├── author/         # Author collection type
 │   │   ├── category/       # Category collection type
-│   │   └── global/         # Global single type
+│   │   ├── global/         # Global single type
+│   │   ├── page/           # Page collection type (Twins in the Loop static pages)
+│   │   ├── topic/          # Topic collection type (Twins Post taxonomy)
+│   │   └── twins-post/     # Twins Post collection type (Twins in the Loop blog)
 │   ├── components/         # Reusable components
-│   │   └── shared/         # Shared components (media, quote, rich-text, slider, seo, social)
+│   │   ├── shared/         # Shared components (media, quote, rich-text, slider, seo, social)
+│   │   └── twins-post/     # Twins Post-specific components (seo)
 │   └── extensions/         # Custom extensions
 ├── scripts/                 # Utility scripts
 │   ├── seed.js             # Initial data seeding from data.json
@@ -96,6 +100,49 @@ Global site configuration (singleType):
 - `defaultSeo` (component: `shared.seo`) - Default SEO configuration
 - **Options**: `draftAndPublish: false`
 
+### Page (`api::page.page`)
+Static pages for the Twins in the Loop site:
+- `title` (string, required) - Page title
+- `slug` (uid) - Auto-generated from title
+- `description` (text, required) - Short description
+- `heading` (string, required) - Page heading
+- `canonical` (string) - Canonical URL
+- `noindex` (boolean) - Exclude from search indexing
+- `keywords` (json) - SEO keywords
+- `ogTitle` (string) - Open Graph title override
+- `ogDescription` (text) - Open Graph description override
+- `ogImage` (media, images) - Open Graph share image
+- `ogType` (enum: "website" | "article", default "website") - Open Graph type
+- `blocks` (dynamiczone) - Flexible content blocks: `shared.media`, `shared.quote`, `shared.rich-text`, `shared.slider`
+- **Options**: `draftAndPublish: true`
+
+### Topic (`api::topic.topic`)
+Taxonomy for Twins Post content:
+- `name` (string, required, unique) - Topic name
+- `slug` (uid) - Auto-generated from name
+- `twinsPosts` (manyToMany) - Relation to Twins Post
+- **Options**: `draftAndPublish: false`
+
+### Twins Post (`api::twins-post.twins-post`)
+Blog posts for the Twins in the Loop site:
+- `title` (string, required) - Post title
+- `slug` (uid) - Auto-generated from title
+- `description` (text, required) - Short description
+- `excerpt` (text, required) - Post excerpt
+- `tldr` (text) - TL;DR summary
+- `cover` (media, images) - Cover image
+- `author` (enum: "zac" | "jacob", required) - Post author
+- `type` (enum: "post" | "musing" | "video" | "podcast", default "post", required) - Post type
+- `topics` (manyToMany) - Relation to Topic
+- `published` (date, required) - Publish date
+- `featured` (boolean) - Featured flag
+- `embedUrl` (string) - Video/podcast embed URL
+- `canonical` (string) - Canonical URL
+- `noindex` (boolean) - Exclude from search indexing
+- `seo` (component: `twins-post.seo`) - SEO metadata
+- `blocks` (dynamiczone) - Flexible content blocks: `shared.media`, `shared.quote`, `shared.rich-text`, `shared.slider`
+- **Options**: `draftAndPublish: true`
+
 ## Dynamic Components
 
 ### shared.rich-text
@@ -128,6 +175,14 @@ Social media links component:
 - `twitter` (string) - Twitter handle
 - `github` (string) - GitHub username
 - `linkedin` (string) - LinkedIn profile
+
+### twins-post.seo
+SEO metadata component for Twins Post:
+- `ogTitle` (string) - Open Graph title override
+- `ogDescription` (text) - Open Graph description override
+- `ogImage` (media, images) - Open Graph share image
+- `ogType` (enum: "website" | "article", default "article") - Open Graph type
+- `keywords` (json) - SEO keywords
 
 ## Key Features
 

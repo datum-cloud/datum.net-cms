@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "topics",
+  "info": {
+    "singularName": "topic",
+    "pluralName": "topics",
+    "displayName": "Topic",
+    "description": "Topics for Twins in the Loop blog posts"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "twinsPosts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::twins-post.twins-post",
+      "mappedBy": "topics"
+    }
+  }
+}

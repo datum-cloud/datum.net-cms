@@ -14,6 +14,8 @@
     "update:db-image-paths": "node ./scripts/update-db-image-paths.js",
     "update:db-upload-path": "node ./scripts/update-db-upload-path.js",
     "seed:example": "node ./scripts/seed.js",
+    "seed:topics": "node ./scripts/seed-topics.js",
+    "migrate:twins-post": "node ./scripts/migrate-twins-post.js",
     "start": "strapi start",
     "strapi": "strapi"
   },
