@@ -1,0 +1,28 @@
+scripts/republish-twins-post.js
+  s_be361f66f7cd19::t_95eb45117ac6c0 1-41
+scripts/fix-twins-post-topics.js
+  s_be361f66f7cd19::t_87e9fd54b4e38a 1-78
+scripts/grant-twins-public-permissions.js
+  s_be361f66f7cd19::t_ea9041d8aab4da 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "500164f3b9678a9c818c67384d26dbe654db5941",
+  "prompts": {},
+  "humans": {
+    "h_c7951bc64db670": {
+      "author": "AriaEdo <aria.edo@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_be361f66f7cd19": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "728598b7-e40e-4326-a6ea-7440b91c3f23",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "AriaEdo <aria.edo@gmail.com>"
+    }
+  }
+}
