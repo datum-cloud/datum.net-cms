@@ -1,0 +1,117 @@
+src/api/page/routes/page.js
+  s_607429f5a96eba::t_f221b5ac45499c 1-9
+src/api/twins-post/services/twins-post.js
+  s_607429f5a96eba::t_6319509bbb54a3 1-9
+src/api/topic/routes/topic.js
+  s_815e8ddb8dea24::t_a510a38b7138ac 1-9
+src/api/page/controllers/page.js
+  s_607429f5a96eba::t_b6dfc5ca93d6c0 1-9
+src/components/twins-post/seo.json
+  s_7cf3ff2239daaf::t_fede7a716cc59f 1-37
+src/api/twins-post/controllers/twins-post.js
+  s_607429f5a96eba::t_6319509bbb54a3 1-9
+src/api/twins-post/routes/twins-post.js
+  s_607429f5a96eba::t_6319509bbb54a3 1-9
+scripts/migrate-twins-post.js
+  s_607429f5a96eba::t_fe2b615f8da95a 3-6
+  s_607429f5a96eba::t_7df1f09ed28814 134
+  s_607429f5a96eba::t_723dcb9ab2abdf 91,130
+  s_7cf3ff2239daaf::t_a99171a4b72444 58,118-123
+  s_607429f5a96eba::t_1885d0eecd80cd 1-2
+  s_607429f5a96eba::t_b13791561455d7 131-133
+  s_607429f5a96eba::t_f097f7ac02fff6 135-137
+  s_7cf3ff2239daaf::t_eadc06203068bb 7-57,59-90,92-117,124-129,138-168
+PROJECT_ANALYSIS.md
+  s_7cf3ff2239daaf::t_5adeda57ea0263 103-145
+  s_7cf3ff2239daaf::t_c37b09e20bf132 179-186
+  s_7cf3ff2239daaf::t_11597409a85bee 41-44,46-47
+src/api/twins-post/content-types/twins-post/schema.json
+  s_607429f5a96eba::t_d68fbebd63f8ba 66
+  s_7cf3ff2239daaf::t_9466bc1dad6123 86-89
+  s_607429f5a96eba::t_76fea1953dc366 63-65
+  s_7cf3ff2239daaf::t_07a9f62c3d49fc 90-92
+  s_7cf3ff2239daaf::t_54354d2b6ad067 1-62,67-85,93-101
+types/generated/components.d.ts
+  s_7cf3ff2239daaf::t_6d71c989c52513 83-100,110
+src/api/topic/content-types/topic/schema.json
+  s_815e8ddb8dea24::t_c65c52022fb916 1-24,26-27,29-32
+  s_607429f5a96eba::t_715e73860e2c42 25
+  s_607429f5a96eba::t_6319509bbb54a3 28
+src/api/topic/controllers/topic.js
+  s_815e8ddb8dea24::t_3ac5a8e654cff7 1-9
+types/generated/contentTypes.d.ts
+  s_607429f5a96eba::t_9cd01b12c8f5ee 599-639,679,684-685,687-692,694,698,712,717-721,724-727,729-732,736-737,742-743,745,747-748,754-758
+  h_c7951bc64db670 1274
+  s_7cf3ff2239daaf::t_6d71c989c52513 746
+  s_607429f5a96eba::t_d01d843155b60e 715-716
+  s_607429f5a96eba::t_a3628fc6e0452a 700-710,740,1277
+  s_607429f5a96eba::t_520b2c4f80ca13 677-678
+  s_607429f5a96eba::t_d4266f108995c3 680-683
+  s_607429f5a96eba::t_44df1b4d2ad1e8 686
+  s_607429f5a96eba::t_191f38fc303765 693
+  s_607429f5a96eba::t_ae00bed478dde5 695-697
+  s_607429f5a96eba::t_7e1f426a650f91 699
+  s_607429f5a96eba::t_07466d35de99a4 711
+  s_607429f5a96eba::t_f1026b55fec0c1 713-714
+  s_607429f5a96eba::t_2c3522271b246b 722-723
+  s_607429f5a96eba::t_8feef8ca7090a7 728
+  s_607429f5a96eba::t_12c0765834a58f 733-735
+  s_607429f5a96eba::t_d0bb163934dae3 738-739
+  s_607429f5a96eba::t_6b36b07659010a 741
+  s_607429f5a96eba::t_85af12d152b3dc 744
+  s_607429f5a96eba::t_3ed6d9325d624e 749-753
+  s_607429f5a96eba::t_43a6e47bb65c01 759
+  s_607429f5a96eba::t_cc86efe1cc1d75 1276
+  s_7cf3ff2239daaf::t_55582e3794b831 656
+scripts/seed-topics.js
+  s_815e8ddb8dea24::t_03bfbed0415a59 1-10,18-26,28-49
+  s_815e8ddb8dea24::t_e3f7d530e3caa0 11-17,27
+package.json
+  s_815e8ddb8dea24::t_1663c070b9bbb1 17
+  s_607429f5a96eba::t_36d327470abf9d 18
+src/api/topic/services/topic.js
+  s_815e8ddb8dea24::t_2d32db08a47339 1-9
+src/api/page/content-types/page/schema.json
+  s_607429f5a96eba::t_52a4232591928f 1-74
+src/api/page/services/page.js
+  s_607429f5a96eba::t_448e498f632055 1-9
+jsconfig.json
+  h_c7951bc64db670 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4c4e613eb2f0b687e804195a258ac49a5c589be8",
+  "prompts": {},
+  "humans": {
+    "h_c7951bc64db670": {
+      "author": "AriaEdo <aria.edo@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_607429f5a96eba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "74058944-2370-43df-94c5-fde2ecdd6c2f",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "AriaEdo <aria.edo@gmail.com>"
+    },
+    "s_7cf3ff2239daaf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a1469ab-396f-4c6c-acbc-c37afa1f2c3a",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "AriaEdo <aria.edo@gmail.com>"
+    },
+    "s_815e8ddb8dea24": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a8292df-78b8-4d8e-887d-dafdf8e2f0c8",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "AriaEdo <aria.edo@gmail.com>"
+    }
+  }
+}
