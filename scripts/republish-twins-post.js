@@ -16,6 +16,16 @@ async function republishAll(app) {
   });
 
   for (const draft of drafts) {
+    const published = await app.documents(CONTENT_TYPE_UID).findFirst({
+      documentId: draft.documentId,
+      status: 'published',
+    });
+
+    if (!published) {
+      console.log(`Skipping "${draft.slug}" (no published version to repair)`);
+      continue;
+    }
+
     await app.documents(CONTENT_TYPE_UID).publish({
       documentId: draft.documentId,
     });
