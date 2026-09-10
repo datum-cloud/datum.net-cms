@@ -65,9 +65,10 @@ async function uploadCover(app, coverPath) {
  * @param {string | any[]} topicIds
  */
 async function resolveTopics(app, topicIds) {
-  if (!topicIds || topicIds.length === 0) return [];
+  const slugs = [].concat(topicIds || []).filter(Boolean);
+  if (slugs.length === 0) return [];
   const topics = await app.documents('api::topic.topic').findMany({
-    filters: { slug: { $in: topicIds } },
+    filters: { slug: { $in: slugs } },
   });
   return topics.map((/** @type {{ documentId: any; }} */ topic) => topic.documentId);
 }
