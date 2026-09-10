@@ -37,8 +37,14 @@ async function fixTopics(app) {
     const topics = await app.documents('api::topic.topic').findMany({
       filters: { slug: { $in: topicSlugs } },
     });
-    const topicDocumentIds = topics.map((topic) => topic.documentId);
 
+    const topicsBySlug = new Map(topics.map((topic) => [topic.slug, topic]));
+    const missingSlugs = topicSlugs.filter((s) => !topicsBySlug.has(s));
+    if (missingSlugs.length) {
+      throw new Error(`Missing topic(s) for "${slug}": ${missingSlugs.join(', ')}`);
+    }
+
+    const topicDocumentIds = topicSlugs.map((s) => topicsBySlug.get(s).documentId);
     for (const status of ['draft', 'published']) {
       const post = await app.documents('api::twins-post.twins-post').findFirst({
         filters: { slug },
