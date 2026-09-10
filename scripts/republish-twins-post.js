@@ -8,13 +8,15 @@
  * Usage: node scripts/republish-twins-post.js
  */
 
+const CONTENT_TYPE_UID = 'api::article.article';
+
 async function republishAll(app) {
-  const drafts = await app.documents('api::twins-post.twins-post').findMany({
+  const drafts = await app.documents(CONTENT_TYPE_UID).findMany({
     status: 'draft',
   });
 
   for (const draft of drafts) {
-    await app.documents('api::twins-post.twins-post').publish({
+    await app.documents(CONTENT_TYPE_UID).publish({
       documentId: draft.documentId,
     });
     console.log(`Republished "${draft.slug}"`);
