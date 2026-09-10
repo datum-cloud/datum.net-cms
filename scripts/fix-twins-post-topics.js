@@ -30,8 +30,16 @@ const POST_TOPICS = {
 };
 
 async function fixTopics(app) {
-  // Clear the orphaned link rows left by the original migration.
-  await app.db.connection('twins_blogs_topics_lnk').del();
+  const topicsAttribute = app.db.metadata.get('api::twins-post.twins-post').attributes.topics;
+  const joinTableName = topicsAttribute?.joinTable?.name;
+  const postJoinColumn = topicsAttribute?.joinTable?.joinColumn?.name;
+
+  if (!joinTableName || !postJoinColumn) {
+    throw new Error('Could not resolve twins-post topics join table metadata');
+  }
+
+  // Clear only the orphaned link rows left by the original migration.
+  await app.db.connection(joinTableName).whereNull(postJoinColumn).del();
 
   for (const [slug, topicSlugs] of Object.entries(POST_TOPICS)) {
     const topics = await app.documents('api::topic.topic').findMany({
