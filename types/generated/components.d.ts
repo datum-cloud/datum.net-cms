@@ -80,6 +80,24 @@ export interface SharedSocial extends Struct.ComponentSchema {
   };
 }
 
+export interface TwinsPostSeo extends Struct.ComponentSchema {
+  collectionName: 'components_twins_post_seos';
+  info: {
+    description: 'Meta tags and Open Graph for Twins Post';
+    displayName: 'SEO';
+    icon: 'allergies';
+    name: 'Seo';
+  };
+  attributes: {
+    keywords: Schema.Attribute.JSON;
+    ogDescription: Schema.Attribute.Text;
+    ogImage: Schema.Attribute.Media<'images'>;
+    ogTitle: Schema.Attribute.String;
+    ogType: Schema.Attribute.Enumeration<['website', 'article']> &
+      Schema.Attribute.DefaultTo<'article'>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -89,6 +107,7 @@ declare module '@strapi/strapi' {
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
       'shared.social': SharedSocial;
+      'twins-post.seo': TwinsPostSeo;
     }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_twins_post_seos",
+  "info": {
+    "name": "Seo",
+    "icon": "allergies",
+    "displayName": "SEO",
+    "description": "Meta tags and Open Graph for Twins Post"
+  },
+  "options": {},
+  "attributes": {
+    "ogTitle": {
+      "type": "string"
+    },
+    "ogDescription": {
+      "type": "text"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ogType": {
+      "type": "enumeration",
+      "enum": [
+        "website",
+        "article"
+      ],
+      "default": "article"
+    },
+    "keywords": {
+      "type": "json"
+    }
+  }
+}
