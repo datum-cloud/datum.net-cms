@@ -1,18 +1,29 @@
 #!/usr/bin/env node
 /**
- * Grant the public role read access to twins-post/topic so the
- * twins-in-the-loop site can fetch published posts via GraphQL without a token.
+ * Grant the public role read access to the specified content types.
  * Idempotent: skips any action that's already granted.
  *
- * Usage: node scripts/grant-twins-public-permissions.js
+ * Usage:
+ *   node scripts/grant-twins-public-permissions.js api::article.article api::category.category
  */
 
-const ACTIONS = [
-  'api::twins-post.twins-post.find',
-  'api::twins-post.twins-post.findOne',
-  'api::topic.topic.find',
-  'api::topic.topic.findOne',
-];
+const contentTypeUids = process.argv.slice(2);
+
+function getActions(app) {
+  if (contentTypeUids.length === 0) {
+    throw new Error(
+      'Provide one or more content-type UIDs, e.g. api::article.article api::category.category'
+    );
+  }
+
+  return contentTypeUids.flatMap((uid) => {
+    if (!app.contentTypes[uid]) {
+      throw new Error(`Content type "${uid}" is not registered in this project`);
+    }
+
+    return [`${uid}.find`, `${uid}.findOne`];
+  });
+}
 
 async function grantPermissions(app) {
   const publicRole = await app.query('plugin::users-permissions.role').findOne({
@@ -22,7 +33,7 @@ async function grantPermissions(app) {
     throw new Error('Public role not found');
   }
 
-  for (const action of ACTIONS) {
+  for (const action of getActions(app)) {
     const existing = await app.query('plugin::users-permissions.permission').findOne({
       where: { action, role: publicRole.id },
     });
