@@ -2,19 +2,19 @@
 
 ## Project Summary
 
-This project is a blog CMS built using Strapi version 5.34.0, designed for deployment on Strapi Cloud. It manages blog content with modern features including article management, authors, categories, and dynamic content zones. The project includes a data seeding system and migration scripts for syncing content from the datum.net Astro site.
+This project is a blog CMS built using Strapi version 5.53.0, designed for deployment on Strapi Cloud. It manages blog content with modern features including article management, authors, categories, and dynamic content zones. The project includes a data seeding system and migration scripts for syncing content from the datum.net Astro site.
 
 ## Technical Information
 
 ### Version & Dependencies
-- **Strapi**: 5.34.0
-- **Node.js**: >=18.0.0 <=24.x.x
+- **Strapi**: 5.53.0
+- **Node.js**: >=20.0.0 <=24.x.x
 - **NPM**: >=6.0.0
 - **Database**: SQLite (default, better-sqlite3), with support for MySQL and PostgreSQL via Strapi Cloud
 - **Plugins**:
-  - `@strapi/plugin-cloud` (5.34.0) - Strapi Cloud integration for deployment
-  - `@strapi/plugin-users-permissions` (5.34.0) - User and permissions management
-  - `@strapi/plugin-graphql` (^5.28.0) - GraphQL API endpoint with playground
+  - `@strapi/plugin-cloud` (5.53.0) - Strapi Cloud integration for deployment
+  - `@strapi/plugin-users-permissions` (5.53.0) - User and permissions management
+  - `@strapi/plugin-graphql` (^5.53.0) - GraphQL API endpoint with playground
 - **Dev Tools**:
   - `eslint` (^9.39.2) - Code linting with ESLint 9 flat config
   - `@eslint/js` (^9.39.2) - ESLint recommended rules
@@ -311,4 +311,4 @@ This enables continuous content management in the Astro site while syncing to St
 
 ## Conclusion
 
-This project is a production-ready Strapi 5.34.0 blog CMS configured for Strapi Cloud deployment. It features modern capabilities including dynamic zones for flexible content, GraphQL API, comprehensive SEO support, and a content migration pipeline from the existing datum.net Astro site. The well-organized code structure and ESLint integration make it easy to develop and maintain at scale.
+This project is a production-ready Strapi 5.53.0 blog CMS configured for Strapi Cloud deployment. It features modern capabilities including dynamic zones for flexible content, GraphQL API, comprehensive SEO support, and a content migration pipeline from the existing datum.net Astro site. The well-organized code structure and ESLint integration make it easy to develop and maintain at scale.
