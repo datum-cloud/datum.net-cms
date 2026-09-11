@@ -8,7 +8,7 @@
  * Usage: node scripts/republish-twins-post.js
  */
 
-const CONTENT_TYPE_UID = 'api::article.article';
+const CONTENT_TYPE_UID = 'api::twins-post.twins-post';
 
 async function republishAll(app) {
   const drafts = await app.documents(CONTENT_TYPE_UID).findMany({
