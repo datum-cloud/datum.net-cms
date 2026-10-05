@@ -22,12 +22,7 @@
       "required": true
     },
     "description": {
-      "type": "text",
-      "required": true
-    },
-    "excerpt": {
-      "type": "text",
-      "required": true
+      "type": "text"
     },
     "tldr": {
       "type": "text"
