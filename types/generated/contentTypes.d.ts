@@ -742,9 +742,8 @@ export interface ApiTwinsPostTwinsPost extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     embedUrl: Schema.Attribute.String;
-    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     firstPublishedAt: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

@@ -127,8 +127,7 @@ Taxonomy for Twins Post content:
 Blog posts for the Twins in the Loop site:
 - `title` (string, required) - Post title
 - `slug` (uid) - Auto-generated from title
-- `description` (text, required) - Short description
-- `excerpt` (text, required) - Post excerpt
+- `description` (text) - Short description
 - `tldr` (text) - TL;DR summary
 - `cover` (media, images) - Cover image
 - `author` (enum: "zac" | "jacob", required) - Post author

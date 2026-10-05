@@ -107,7 +107,6 @@ async function migratePost(app, fileName) {
     title: frontmatter.title,
     slug,
     description: frontmatter.description,
-    excerpt: frontmatter.excerpt,
     tldr: frontmatter.tldr,
     published: frontmatter.published,
     author: frontmatter.author,
