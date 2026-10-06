@@ -90,6 +90,8 @@ export interface TwinsPostSeo extends Struct.ComponentSchema {
   };
   attributes: {
     keywords: Schema.Attribute.JSON;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
     ogDescription: Schema.Attribute.Text;
     ogImage: Schema.Attribute.Media<'images'>;
     ogTitle: Schema.Attribute.String;

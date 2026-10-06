@@ -8,6 +8,12 @@
   },
   "options": {},
   "attributes": {
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
     "ogTitle": {
       "type": "string"
     },
