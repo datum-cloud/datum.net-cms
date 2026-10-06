@@ -176,7 +176,9 @@ Social media links component:
 - `linkedin` (string) - LinkedIn profile
 
 ### twins-post.seo
-SEO metadata component for Twins Post:
+SEO metadata component for Twins Post. `metaTitle` and `metaDescription` are optional; the site falls back to the post `title` and `description`.
+- `metaTitle` (string) - Document title (`<title>`). Does not change the on-page headline
+- `metaDescription` (text) - Meta description override
 - `ogTitle` (string) - Open Graph title override
 - `ogDescription` (text) - Open Graph description override
 - `ogImage` (media, images) - Open Graph share image
