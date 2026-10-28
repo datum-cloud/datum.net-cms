@@ -26,5 +26,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm ls react react-dom react-router-dom styled-components
       - run: npm run lint
       - run: npm run build
