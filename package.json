@@ -33,7 +33,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.30.3",
     "strapi-plugin-multiselect-field": "^1.0.2",
-    "styled-components": "^6.0.0",
+    "styled-components": "^5.3.11",
     "zod": "^4.1.12"
   },
   "engines": {
