@@ -48,8 +48,21 @@
     "@strapi/generators": {
       "handlebars": "4.7.10"
     },
+    "@strapi/core": {
+      "undici": "8.12.2"
+    },
+    "@graphql-tools/utils": "12.0.2",
     "dompurify": "^3.4.17",
+    "koa-body": {
+      "zod": "3.25.76"
+    },
+    "koa-session": {
+      "zod": "3.25.76"
+    },
     "markdown-it": "^14.3.3",
-    "vite": "^6.4.4"
+    "nodemailer": "10.1.4",
+    "vite": "^6.4.4",
+    "webpack-dev-middleware": "7.4.6",
+    "zod": "$zod"
   }
 }
