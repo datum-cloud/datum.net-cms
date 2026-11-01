@@ -4,7 +4,7 @@ Guide for running the Strapi blog CMS locally before deploying to production.
 
 ## Prerequisites
 
-- **Node.js**: 20.x–24.x
+- **Node.js**: 22.19 to 26.x; CI builds on 26
 - **npm**: 6.x or higher
 
 ## Quick Start
