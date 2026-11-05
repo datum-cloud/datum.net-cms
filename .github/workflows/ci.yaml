@@ -12,4 +12,6 @@ jobs:
   ci:
     uses: datum-cloud/actions/.github/workflows/ci-basic.yaml@v1.26.0
     with:
-      run: npm ls react react-dom react-router-dom styled-components
+      run: |
+        npm ls react react-dom react-router-dom styled-components
+        npx --yes -p node@24 -- bash -euo pipefail -c 'node --version | grep -q "^v24\." && npm ci && npm run build'
