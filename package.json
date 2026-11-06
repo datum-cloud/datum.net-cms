@@ -63,6 +63,8 @@
     "nodemailer": "10.1.4",
     "vite": "^6.4.4",
     "webpack-dev-middleware": "7.4.6",
-    "zod": "$zod"
+    "zod": "$zod",
+    "minimatch@^10": "11.0.4",
+    "glob@^13": "14.0.3"
   }
 }
