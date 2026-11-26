@@ -20,10 +20,10 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.61.0",
+    "@strapi/plugin-cloud": "5.61.1",
     "@strapi/plugin-graphql": "^5.61.0",
-    "@strapi/plugin-users-permissions": "5.61.0",
-    "@strapi/strapi": "5.61.0",
+    "@strapi/plugin-users-permissions": "5.61.1",
+    "@strapi/strapi": "5.61.1",
     "better-sqlite3": "12.11.1",
     "form-data": "^4.0.5",
     "fs-extra": "^10.0.0",
@@ -51,17 +51,17 @@
     "@strapi/core": {
       "undici": "8.12.2"
     },
-    "@graphql-tools/utils": "12.0.2",
-    "dompurify": "^3.4.17",
+    "@graphql-tools/utils": "12.0.4",
+    "dompurify": "^3.4.18",
     "koa-body": {
-      "zod": "3.25.76"
+      "zod": "4.6.7"
     },
     "koa-session": {
-      "zod": "3.25.76"
+      "zod": "4.6.7"
     },
     "markdown-it": "^14.3.3",
-    "nodemailer": "10.1.4",
-    "vite": "^6.4.4",
+    "nodemailer": "10.1.7",
+    "vite": "^6.4.6",
     "webpack-dev-middleware": "7.4.6",
     "zod": "$zod",
     "minimatch@^10": "11.0.4",
