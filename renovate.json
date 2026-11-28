@@ -11,6 +11,12 @@
     {
       "matchPackageNames": ["react-router-dom"],
       "allowedVersions": "<7"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["overrides"],
+      "matchDepNames": ["zod"],
+      "allowedVersions": "<4"
     }
   ]
 }
